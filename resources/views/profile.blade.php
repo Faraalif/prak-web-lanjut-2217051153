@@ -62,7 +62,7 @@
     <div class="profile-img">
         <img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" alt="Profile Image">
     </div>
-    <table class="profile-info">
+    <table action="{{ route('user.store') }}" method="POST" class="profile-info">
         <tr>
             <td>Nama</td>
             <td>:</td>
