@@ -1,0 +1,60 @@
+/* Resetting margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c9e7f6; /* Match the background color from the screenshot */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Styling the card */
+.card {
+    background-color: #fff; /* White background for the card */
+    padding: 30px; 
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Styling the image container */
+.img-bx {
+    margin-bottom: 20px;
+}
+
+.img-bx img {
+    width: 100px; /* Adjust the image size */
+    height: 100px; /* Adjust the image size */
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling the table */
+.detail table {
+    width: 100%;
+}
+
+.detail td {
+    padding: 5px 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Adding the panda icon to match the screenshot */
+.card::before {
+    content: url("https://example.com/panda-icon.png"); /* Add the path to your panda icon image */
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px); /* Centers the panda icon */
+    width: 100px;
+    height: 100px;
+}
