@@ -1,11 +1,14 @@
+# Mengatur akhir baris menjadi LF
 * text=auto eol=lf
 
+# Aturan diff untuk file berdasarkan ekstensi
 *.blade.php diff=html
 *.css diff=css
 *.html diff=html
 *.md diff=markdown
 *.php diff=php
 
+# Mengabaikan file saat ekspor proyek
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
