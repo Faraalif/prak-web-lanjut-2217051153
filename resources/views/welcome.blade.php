@@ -862,8 +862,8 @@
             </div>
 
             <div class="container">
-                <h1 class="mt-6 text-center text-xl font-semibold text-gray-900 dark:text-white"  style="font-size: 3rem;" >Dini Soraya -
-                    2217051107</h1>
+                <h1 class="mt-6 text-center text-xl font-semibold text-gray-900 dark:text-white"  style="font-size: 3rem;" >Fara Alif Lailla -
+                    2217051153</h1>
             </div>
 
             <div class="mt-16">
