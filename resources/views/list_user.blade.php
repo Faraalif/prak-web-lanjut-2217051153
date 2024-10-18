@@ -27,6 +27,17 @@
         background-color: #B0E0E6;
     }
 
+    .btn-pink-outline {
+        color: #FF69B4;
+        border: 1px solid #FF69B4;
+        background-color: transparent;
+        transition: all 0.3s;
+    }
+
+    .btn-pink-outline:hover {
+        background-color: #FFC0CB;
+    }
+
     .table-container {
         background-color: #B0E0E6;
         border-radius: 10px;
@@ -107,7 +118,6 @@
 <div class="container">
     <div class="card shadow-sm">
         <div class="card-body">
-            <!-- Tombol "Tambah User" di kiri atas dengan background biru -->
             <a href="{{ route('user.create') }}" class="add-user-btn">Tambah User</a>
             
             <h1 class="text-center mb-4" style="color: #5F9EA0; text-align: center;">Daftar Mahasiswa</h1>
@@ -133,12 +143,22 @@
                                 <td>{{ $user->nama_kelas }}</td> 
                                 <td>{{ $user->npm }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/upload/'.$user->foto) }}" alt="foto user" width="100">
+                                    @if($user->foto)
+                                        <img src="{{ asset('storage/uploads/' . $user->foto) }}" alt="foto user" width="100">
+                                    @else
+                                        <img src="{{ asset('path/to/default/image.jpg') }}" alt="foto default" width="100">
+                                    @endif
                                 </td>
                                 <td>
                                     <a href="{{ route('user.show', $user->id) }}" class="btn btn-warning mb-3">View</a>
-                                    <button class="btn btn-sm btn-blue-outline">Edit</button>
-                                    <button class="btn btn-sm btn-blue-outline">Delete</button>
+                                    
+                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-blue-outline">Edit</a>
+                                    
+                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-pink-outline" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
