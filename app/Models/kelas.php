@@ -9,22 +9,22 @@ class Kelas extends Model
 {
     use HasFactory;
 
-    protected $table = 'kelas';
     protected $guarded = ['id'];
+    protected $table = 'kelas';
 
+    /**
+     * Mendapatkan semua data kelas.
+     */
+    public function getKelas()
+    {
+        return $this->all();
+    }
+
+    /**
+     * Relasi one-to-many dengan model UserModel.
+     */
     public function user()
     {
         return $this->hasMany(UserModel::class, 'kelas_id');
-    }
-
-// Remove the create() method from here
-
-    public function create(){
-        return view('create_user', ['kelas' => Kelas::all(),
-    ]);
-    }
-
-    public function getKelas(){
-        return $this->all();
     }
 }

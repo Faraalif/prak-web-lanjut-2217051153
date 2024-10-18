@@ -10,7 +10,7 @@
 
     <style>
         body {
-            background-color: #ffc0cb;
+            background-color: #B0E0E6;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,36 +23,31 @@
             background-color: white;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            width: 350px;
+            padding: 40px;
+            width: 450px;
             text-align: center;
         }
 
+        /* Profile image at the top with full width and no cropping */
         .profile-img img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
+            width: auto;
+            max-width: 100%; /* Adjusts to the full width of the card */
+            height: auto; /* Ensures the height scales proportionally */
             margin-bottom: 20px;
         }
 
         .profile-info {
             width: 100%;
             margin-top: 10px;
-            font-size: 14px;
+            font-size: 18px; /* Slightly larger font size */
         }
 
         .profile-info td {
             padding: 5px 10px;
+            text-align: center; /* Align text to center */
         }
 
-        .profile-info td:first-child {
-            text-align: left;
-            font-weight: bold;
-        }
-
-        .profile-info td:nth-child(2) {
-            width: 10px;
-        }
+        /* Remove labels, show only the content */
     </style>
 </head>
 
@@ -60,23 +55,18 @@
 
 <div class="profile-card">
     <div class="profile-img">
-        <img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" alt="Profile Image">
+        <img src="{{ asset('storage/upload/' . $foto ?? 'image-not-found.png') }}" alt="Profile Image"> 
+        <!-- The image now respects the original aspect ratio and fits fully -->
     </div>
     <table action="{{ route('user.store') }}" method="POST" class="profile-info">
         <tr>
-            <td>Nama</td>
-            <td>:</td>
-            <td>{{ $nama }}</td>
+            <td>{{ $nama }}</td> <!-- Only showing the value for Nama -->
         </tr>
         <tr>
-            <td>NPM</td>
-            <td>:</td>
-            <td>{{ $npm }}</td>
+            <td>{{ $npm }}</td> <!-- Only showing the value for NPM -->
         </tr>
         <tr>
-            <td>Kelas</td>
-            <td>:</td>
-            <td>{{ $kelas_id ?? 'Kelas tidak ditemukan' }}</td>
+             <td>{{ $nama_kelas }}</td>
         </tr>
     </table>
 </div>
