@@ -55,7 +55,7 @@
 
 <div class="profile-card">
     <div class="profile-img">
-        <img src="{{ asset('storage/upload/' . $foto ?? 'image-not-found.png') }}" alt="Profile Image"> 
+        <img src="{{ asset('storage/uploads/' . $foto ?? 'image-not-found.png') }}" alt="Profile Image"> 
         <!-- The image now respects the original aspect ratio and fits fully -->
     </div>
     <table action="{{ route('user.store') }}" method="POST" class="profile-info">
