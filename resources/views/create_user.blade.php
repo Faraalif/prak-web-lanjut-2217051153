@@ -11,7 +11,7 @@
 
     body {
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        background: linear-gradient(135deg, #89CFF0 0%, #B0E0E6 100%); /* Latar belakang biru */
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -23,14 +23,14 @@
         padding: 30px;
         border-radius: 12px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        width: 350px;
+        width: 400px; /* Memperlebar box form */
         text-align: center;
     }
 
     h2 {
         margin-bottom: 20px;
         font-size: 24px;
-        color: #f5576c;
+        color: #4682B4; /* Judul biru */
     }
 
     label {
@@ -52,14 +52,14 @@
     }
 
     input[type="text"]:focus, select:focus {
-        border-color: #f5576c;
+        border-color: #4682B4; /* Warna fokus biru */
         outline: none;
     }
 
     button {
         width: 100%;
         padding: 12px;
-        background-color: #f5576c;
+        background-color: #4682B4; /* Tombol biru */
         color: white;
         font-size: 16px;
         border: none;
@@ -69,30 +69,45 @@
     }
 
     button:hover {
-        background-color: #d94556;
+        background-color: #5F9EA0; /* Tombol hover sedikit lebih terang */
+    }
+
+    button:active {
+        background-color: #bf3d4a; /* Warna tombol saat aktif */
+    }
+
+    @media (max-width: 480px) {
+        .form-container {
+            padding: 20px; /* Menyesuaikan padding */
+        }
+        h2 {
+            font-size: 22px; /* Menyesuaikan ukuran font */
+        }
     }
 </style>
 
 <div class="form-container">
     <h2>FORM</h2>
 
-    <form action="{{ route('user.store') }}" method="POST">
+    <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <label for="nama">Nama:</label>
-        <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required><br>
-
-        <label for="npm">NPM:</label>
-        <input type="text" id="npm" name="npm" placeholder="Masukkan NPM Anda" required><br>
-
-        <label for="kelas">Kelas:</label>
+        <label for="nama">Nama</label>
+        <input type="text" name="nama" id="nama" placeholder="Masukan nama anda" required>
+        
+        <label for="id_kelas">Kelas</label>
         <select name="kelas_id" id="kelas_id" required>
             @foreach ($kelas as $kelasItem)
                 <option value="{{ $kelasItem->id }}">{{ $kelasItem->nama_kelas }}</option>
             @endforeach
-        </select>
+        </select>     
+        
+        <label for="npm">NPM</label>
+        <input type="text" name="npm" id="npm" placeholder="Masukan NPM anda" required>
+        
+        <label for="foto">Foto:</label>
+        <input type="file" id="foto" name="foto"><br><br>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Kirim</button>
     </form>
 </div>
-
 @endsection
