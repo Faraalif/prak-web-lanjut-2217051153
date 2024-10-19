@@ -11,7 +11,7 @@
 
     body {
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #89CFF0 0%, #B0E0E6 100%); /* Latar belakang biru */
+        background: linear-gradient(135deg, #89CFF0 0%, #B0E0E6 100%);
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -23,14 +23,14 @@
         padding: 30px;
         border-radius: 12px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        width: 400px; /* Memperlebar box form */
+        width: 400px;
         text-align: center;
     }
 
     h2 {
         margin-bottom: 20px;
         font-size: 24px;
-        color: #4682B4; /* Judul biru */
+        color: #4682B4;
     }
 
     label {
@@ -52,14 +52,14 @@
     }
 
     input[type="text"]:focus, select:focus {
-        border-color: #4682B4; /* Warna fokus biru */
+        border-color: #4682B4;
         outline: none;
     }
 
     button {
         width: 100%;
         padding: 12px;
-        background-color: #4682B4; /* Tombol biru */
+        background-color: #4682B4;
         color: white;
         font-size: 16px;
         border: none;
@@ -69,19 +69,19 @@
     }
 
     button:hover {
-        background-color: #5F9EA0; /* Tombol hover sedikit lebih terang */
+        background-color: #5F9EA0;
     }
 
     button:active {
-        background-color: #bf3d4a; /* Warna tombol saat aktif */
+        background-color: #bf3d4a;
     }
 
     @media (max-width: 480px) {
         .form-container {
-            padding: 20px; /* Menyesuaikan padding */
+            padding: 20px;
         }
         h2 {
-            font-size: 22px; /* Menyesuaikan ukuran font */
+            font-size: 22px;
         }
     }
 </style>
@@ -100,7 +100,8 @@
         <label for="kelas_id">Kelas</label>
         <select name="kelas_id" id="kelas_id" required>
             @foreach ($kelas as $kelasItem)
-                <option value="{{ $kelasItem->id }}" {{ $kelasItem->id == $user->kelas_id ? 'selected' : '' }}>
+                <option value="{{ $kelasItem->id }}" 
+                    {{ $kelasItem->id == $user->kelas_id ? 'selected' : '' }}>
                     {{ $kelasItem->nama_kelas }}
                 </option>
             @endforeach
@@ -120,4 +121,5 @@
         <button type="submit">Kirim</button>
     </form>
 </div>
+
 @endsection
