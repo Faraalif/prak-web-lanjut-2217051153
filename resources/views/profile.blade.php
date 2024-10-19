@@ -28,26 +28,28 @@
             text-align: center;
         }
 
-        /* Profile image at the top with full width and no cropping */
         .profile-img img {
             width: auto;
-            max-width: 100%; /* Adjusts to the full width of the card */
-            height: auto; /* Ensures the height scales proportionally */
+            max-width: 100%;
+            height: auto;
             margin-bottom: 20px;
         }
 
         .profile-info {
             width: 100%;
             margin-top: 10px;
-            font-size: 18px; /* Slightly larger font size */
+            font-size: 18px;
         }
 
         .profile-info td {
             padding: 5px 10px;
-            text-align: center; /* Align text to center */
+            text-align: center;
         }
 
-        /* Remove labels, show only the content */
+        /* Hide unnecessary table borders */
+        .profile-info, .profile-info td {
+            border: none;
+        }
     </style>
 </head>
 
@@ -55,18 +57,17 @@
 
 <div class="profile-card">
     <div class="profile-img">
-        <img src="{{ asset('storage/uploads/' . $foto ?? 'image-not-found.png') }}" alt="Profile Image"> 
-        <!-- The image now respects the original aspect ratio and fits fully -->
+        <img src="{{ asset('storage/uploads/' . $foto ?? 'image-not-found.png') }}" alt="Profile Image">
     </div>
-    <table action="{{ route('user.store') }}" method="POST" class="profile-info">
+    <table class="profile-info">
         <tr>
-            <td>{{ $nama }}</td> <!-- Only showing the value for Nama -->
+            <td>{{ $nama }}</td>
         </tr>
         <tr>
-            <td>{{ $npm }}</td> <!-- Only showing the value for NPM -->
+            <td>{{ $nama_kelas ?? 'Kelas tidak ditemukan' }}</td>
         </tr>
         <tr>
-             <td>{{ $nama_kelas }}</td>
+            <td>{{ $npm }}</td>
         </tr>
     </table>
 </div>
