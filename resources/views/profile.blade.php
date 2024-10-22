@@ -69,6 +69,12 @@
         <tr>
             <td>{{ $npm }}</td>
         </tr>
+        <tr>
+            <td>{{ $jurusan }}</td>
+        </tr>
+        <tr>
+            <td>{{ $semester }}</td>
+        </tr>
     </table>
 </div>
 

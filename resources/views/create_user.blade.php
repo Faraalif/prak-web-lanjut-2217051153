@@ -107,6 +107,17 @@
         <label for="foto">Foto:</label>
         <input type="file" id="foto" name="foto"><br><br>
 
+        <!-- Bagian tambahan untuk Jurusan dan Semester -->
+        <div class="mb-3">
+            <label for="jurusan">Jurusan:</label>
+            <input type="text" id="jurusan" name="jurusan" value="{{ old('jurusan') }}" placeholder="Masukkan jurusan">
+        </div>
+
+        <div class="mb-3">
+            <label for="semester">Semester:</label>
+            <input type="text" id="semester" name="semester" value="{{ old('semester') }}" placeholder="Masukkan semester">
+        </div>
+
         <button type="submit">Kirim</button>
     </form>
 </div>

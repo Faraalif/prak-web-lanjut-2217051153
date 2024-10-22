@@ -2,117 +2,94 @@
 
 @section('content')
 <style>
-    .btn-blue {
-        background-color: #5F9EA0;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 8px 16px;
-        transition: all 0.3s;
-    }
-
-    .btn-blue:hover {
-        background-color: #4682B4;
-        color: white;
-    }
-
-    .btn-blue-outline {
-        color: #5F9EA0;
-        border: 1px solid #5F9EA0;
-        background-color: transparent;
-        transition: all 0.3s;
-    }
-
-    .btn-blue-outline:hover {
-        background-color: #B0E0E6;
-    }
-
-    .btn-pink-outline {
-        color: #FF69B4;
-        border: 1px solid #FF69B4;
-        background-color: transparent;
-        transition: all 0.3s;
-    }
-
-    .btn-pink-outline:hover {
-        background-color: #FFC0CB;
-    }
-
-    .table-container {
-        background-color: #B0E0E6;
-        border-radius: 10px;
+    /* Style untuk card container */
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Membuat grid responsif */
+        gap: 20px;
+        justify-content: center;
         padding: 20px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        margin-bottom: 20px;
-        margin-top: 20px;
-        overflow: hidden;
-        text-align: center;
     }
 
-    .table {
-        margin: 0 auto;
+    .card {
         background-color: white;
-        border-radius: 8px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
         overflow: hidden;
-        border-collapse: collapse;
-        width: 100%;
-        max-width: 1200px;
-        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        text-align: center;
+        padding: 15px;
     }
 
-    .table, .table th, .table td {
-        border: 1px solid #4682B4;
+    .card:hover {
+        transform: scale(1.05);
     }
 
-    .table thead th {
-        border-bottom: 2px solid #4682B4;
-        color: #5F9EA0;
-        font-weight: 600;
-        text-transform: uppercase;
+    .card img {
+        border-radius: 50%;
+        width: 120px; /* Ukuran gambar lebih proporsional */
+        height: 120px;
+        object-fit: cover; /* Agar gambar tidak terdistorsi */
+        margin-bottom: 15px;
+    }
+
+    .card-title {
         font-size: 18px;
-        padding: 15px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
     }
 
-    .table tbody tr {
-        transition: all 0.2s;
-        height: 60px;
+    .card-text {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 15px;
     }
 
-    .table tbody tr:hover {
-        background-color: #B0E0E6;
+    .btn-primary {
+        background-color: #4682B4;
+        border: none;
+        padding: 8px 16px;
+        font-size: 14px;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
     }
 
-    .table td {
-        padding: 15px;
-        vertical-align: middle;
-        color: #666;
-        font-size: 16px;
-    }
-
-    img {
-        width: 120px;
-        height: auto;
+    .btn-primary:hover {
+        background-color: #5F9EA0;
     }
 
     .add-user-btn {
-        position: absolute;
-        top: 20px;
-        left: 20px;
+        display: block;
+        margin-bottom: 20px;
+        padding: 10px 20px;
         background-color: #5F9EA0;
         color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 8px;
-        text-transform: uppercase;
-        font-weight: bold;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
         transition: background-color 0.3s;
     }
 
     .add-user-btn:hover {
-        background-color: #5F9EA0;
-        color: white;
+        background-color: #4682B4;
     }
 
+    h1 {
+        text-align: center;
+        color: #5F9EA0;
+        margin-bottom: 30px;
+    }
+
+    /* Untuk memastikan tampilan responsif */
+    @media (max-width: 600px) {
+        .card-container {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 
 <div class="container">
@@ -120,53 +97,29 @@
         <div class="card-body">
             <a href="{{ route('user.create') }}" class="add-user-btn">Tambah User</a>
             
-            <h1 class="text-center mb-4" style="color: #5F9EA0; text-align: center;">Daftar Mahasiswa</h1>
+            <h1 class="text-center mb-4">Daftar Mahasiswa</h1>
             
-            <div class="table-container">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nama</th>
-                                <th>Kelas</th>
-                                <th>NPM</th>
-                                <th>Foto</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
-                            <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->nama }}</td>
-                                <td>{{ $user->nama_kelas }}</td> 
-                                <td>{{ $user->npm }}</td>
-                                <td>
-                                    @if($user->foto)
-                                        <img src="{{ asset('storage/uploads/' . $user->foto) }}" alt="foto user" width="100">
-                                    @else
-                                        <img src="{{ asset('path/to/default/image.jpg') }}" alt="foto default" width="100">
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('user.show', $user->id) }}" class="btn btn-warning mb-3">View</a>
-                                    
-                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-blue-outline">Edit</a>
-                                    <form id="deleteForm-{{ $user['id'] }}" 
-                                        action="{{ route('user.destroy', $user->id) }}" method="POST" style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" 
-                                                onclick="confirmDelete({{ $user['id'] }})" 
-                                                class="btn btn-sm btn-pink-outline">Hapus</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+            <!-- Card container untuk menampilkan daftar user dalam bentuk cards -->
+            <div class="card-container">
+                @foreach ($users as $user)
+                    <div class="card">
+                        @if($user->foto)
+                            <img class="card-img-top" src="{{ asset('storage/uploads/' . $user->foto) }}" alt="Foto user">
+                        @else
+                            <img class="card-img-top" src="{{ asset('path/to/default/image.jpg') }}" alt="Default image">
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $user->nama }}</h5>
+                            <p class="card-text">
+                                NPM: {{ $user->npm }}<br>
+                                Kelas: {{ $user->nama_kelas }}<br>
+                                Jurusan: {{ $user->jurusan }}<br>
+                                Semester: {{ $user->semester }}
+                            </p>
+                            <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary btn-sm">Detail</a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
