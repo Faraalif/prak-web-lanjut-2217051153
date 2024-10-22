@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
     public $userModel;
     public $kelasModel;
 
@@ -21,18 +20,13 @@ class UserController extends Controller
         $data = [
             'title' => 'List User',
             'users' => $this->userModel->getUser(),
-            // 'kelas' => $this->userModel->getUser(),
         ];
 
-        return view ('list_user', $data);
-
+        return view('list_user', $data);
     }
 
     public function create(){
-
-        $kelasModel = new Kelas();
-
-        $kelas = $kelasModel->getKelas();
+        $kelas = $this->kelasModel->getKelas();
 
         $data = [
             'title' => 'Create User',
@@ -49,6 +43,8 @@ class UserController extends Controller
             'kelas_id' => 'required',
             'npm' => 'required',
             'foto' => 'image|file|max:2048',
+            'jurusan' => 'required',
+            'semester' => 'required',
         ]);
 
         // Proses upload foto
@@ -63,22 +59,12 @@ class UserController extends Controller
                 'kelas_id' => $request->input('kelas_id'),
                 'npm' => $request->input('npm'),
                 'foto' => $filename,
+                'jurusan' => $request->input('jurusan'),
+                'semester' => $request->input('semester'),
             ]);
         }
 
-        // return redirect()->to('/user/list');
-
         return redirect()->route('user.list')->with('success', 'User berhasil ditambahkan');
-
-        // $user = UserModel::create($validatedData);
-
-        // $user->load ('kelas');
-
-        // return view('profile', [
-        //     'nama' => $user->nama,
-        //     'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan',
-        //     'npm' => $user->npm,
-        // ]);
     }
 
     public function show($id)
@@ -89,33 +75,35 @@ class UserController extends Controller
             return redirect()->route('user.index')->with('error', 'User tidak ditemukan');
         }
 
+        $kelas = Kelas::find($user->kelas_id); // Menampilkan nama kelas jika ada
+
         $data = [
             'title' => 'Profile',
-            'nama' => $user->nama,
-            'nama_kelas' => $user->nama_kelas,
-            'npm' => $user->npm,
             'user' => $user,
+            'nama_kelas' => $kelas ? $kelas->nama_kelas : null, // Pastikan nama kelas ada, jika tidak tampilkan null
             'foto' => $user->foto
         ];
 
         return view('profile', $data);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $user = UserModel::findOrFail($id);
-        $kelasModel = new Kelas();
-        $kelas = $kelasModel->getKelas();
+        $kelas = $this->kelasModel->getKelas();
         $title = 'Edit User';
+
         return view('edit_user', compact('user', 'kelas', 'title'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $user = UserModel::findOrFail($id);
 
         // Update data user lainnya
         $user->nama = $request->nama;
-        $user->kelas_id = $request->kelas_id;
         $user->npm = $request->npm;
+        $user->kelas_id = $request->kelas_id;
 
         // Cek apakah ada file foto yang di-upload
         if ($request->hasFile('foto')) {
@@ -125,7 +113,6 @@ class UserController extends Controller
             // Hapus foto lama jika ada
             if ($oldFilename) {
                 $oldFilePath = public_path('storage/uploads/' . $oldFilename);
-                // Cek apakah file lama ada dan hapus
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath); // Hapus foto lama dari folder
                 }
@@ -140,18 +127,21 @@ class UserController extends Controller
             $user->foto = $newFilename;
         }
 
+        // Update jurusan dan semester
+        $user->jurusan = $request->jurusan;
+        $user->semester = $request->semester;
+
         // Simpan perubahan pada user
         $user->save();
 
-        return redirect()->route('user.list')->with('success', 'User updated successfully');
-
+        return redirect()->route('user.list')->with('success', 'User berhasil diupdate');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $user = UserModel::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('user.list')->with('success', 'User deleted successfully');
-
+        return redirect()->route('user.list')->with('success', 'User berhasil dihapus');
     }
 }
